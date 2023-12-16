@@ -16,6 +16,14 @@ def procurar_ordem_producao(numero_ordem: int) -> str:
         return "Essa ordem de produção não está cadastrada.\n"
 
 
+def atualizar_ordem_producao(numero_ordem: int, detalhes: str, prazo: date) -> None | str:
+    if numero_ordem in ordens_de_producao:
+        ordens_de_producao[numero_ordem]["detalhes"] = detalhes
+        ordens_de_producao["prazo"] = prazo
+    else:
+        return "Esta ordem não está na produção."
+
+
 # exemplo de cadastro
 registrar_ordem_producao(533, "Iphone XR 50 GB", date(2024, 1, 30))
 registrar_ordem_producao(1245, "Samsung Galaxy S23", date(2024, 2, 4))

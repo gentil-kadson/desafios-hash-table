@@ -14,6 +14,13 @@ def buscar_informacoes_sensor(id: int) -> str:
         return "Este sensor não está sendo monitorado.\n"
 
 
+def atualizar_sensor(id: int, leituras_recentes: list[str]) -> None | str:
+    if id in sensores:
+        sensores[id]["leituras_recentes"] = leituras_recentes
+    else:
+        return "Este sensor não está cadastrado."
+
+
 # exemplo de cadastro
 adicionar_sensor(5542, ["40 ºC", "-20 ºC", "48 ºC"])
 adicionar_sensor(3566, ["100 ºC", "0 ºC", "17 ºC"])

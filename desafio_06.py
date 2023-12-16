@@ -18,6 +18,14 @@ def procurar_produto(id: int) -> str:
         return f"Este produto não está registrado.\n"
 
 
+def atualizar_produto(id: int, dados_qualidade: dict[str], feedbacks: list[str]) -> None | str:
+    if id in produtos:
+        produtos[id]["dados_qualidade"] = dados_qualidade
+        produtos[id]["feedbacks"] = feedbacks
+    else:
+        return "Este produto não está registrado nos produtos."
+
+
 produto_um = {
     "dados_qualidade": {
         "estado": "semi-novo",

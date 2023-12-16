@@ -27,6 +27,15 @@ def buscar_produto_ou_categoria(id: str):
         return "Produto ou categoria não registrado."
 
 
+def atualizar_produto_ou_categoria(id: str, dados_vendas: int, demanda: str, avaliacoes: list[dict[str]]) -> None | str:
+    if id in produtos_ou_categorias:
+        produtos_ou_categorias[id]["dados_vendas"] = dados_vendas
+        produtos_ou_categorias[id]["demanda"] = demanda
+        produtos_ou_categorias[id]["avaliacoes"] = avaliacoes
+    else:
+        return "Este produto ou categoria não está na nossa base de dados."
+
+
 # exemplo de registro
 avaliacoes_produto_um = [
     {

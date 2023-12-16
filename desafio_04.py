@@ -16,6 +16,14 @@ def buscar_usuario(id: int) -> str:
         return f"Este usuário não está cadastrado.\n"
 
 
+def atualizar_usuario(id: int, username: str, password: str) -> None | str:
+    if id in usuarios:
+        usuarios[id]["username"] = username
+        usuarios[id]["password"] = password
+    else:
+        return "Este usuário não existe."
+
+
 # exemplo de uso
 cadastrar_usuario(1, "Yoshigake Kira", "Baize dosuto")
 cadastrar_usuario(10, "Diavolo", "Kingu Kurimuson")
