@@ -1,4 +1,3 @@
-import re
 from _thread import start_new_thread
 from random import randint
 from datetime import datetime
@@ -7,22 +6,20 @@ tabela_sensores = {}
 
 
 def resolver_conflito(tabela_hash: dict[str], timestamp: str):
-    indices_para_exclusao: list[int] = []
-    lista_sensores: list[tuple] = list(tabela_hash.items())
+    hashes = []
 
-    for sensor in lista_sensores:
-        if timestamp in sensor[0]:
-            indices_para_exclusao.append(lista_sensores.index(sensor))
+    for chave in list(tabela_hash):
+        if timestamp in chave:
+            hashes.append(chave)
 
-    while len(indices_para_exclusao) != 1:
-        indice = indices_para_exclusao.pop()
-        del lista_sensores[indice]
+    if len(hashes) > 1:
+        hashes.pop()
 
-    tabela_hash = dict(lista_sensores)
-    return tabela_hash
+    for hash_code in hashes:
+        del tabela_hash[hash_code]
 
 
-def cadastrar_sensor(id: int) -> None:
+def cadastrar_sensor(tabela_hash_sensores: dict[str], id: int) -> None:
     temperatura = randint(-40, 50)  # ºC
     pressao = randint(1, 5)  # atm
     umidade = randint(10, 60)  # %
@@ -32,13 +29,13 @@ def cadastrar_sensor(id: int) -> None:
         "umidade": umidade
     }
 
-    timestamp = str(datetime.now().timestamp())
+    timestamp = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     chave = str(id) + timestamp
-    tabela_sensores[chave] = leitura_sensor
-    resolver_conflito(tabela_sensores, chave)
+    tabela_hash_sensores[chave] = leitura_sensor
+    resolver_conflito(tabela_hash_sensores, timestamp)
 
 
-# id = 1
-# while True:
-#     start_new_thread(cadastrar_sensor, (id,))
-#     id = id + 1
+id = 1
+while True:
+    start_new_thread(cadastrar_sensor, (tabela_sensores, id,))
+    id = id + 1
