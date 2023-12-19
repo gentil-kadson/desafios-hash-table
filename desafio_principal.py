@@ -7,6 +7,7 @@ tabela_sensores = {}
 
 def resolver_conflito(tabela_sensores: dict[str], chave: str):
     lista_sensores: list[tuple] = list(tabela_sensores.items())
+    print(lista_sensores)
     while lista_sensores.count((chave, tabela_sensores[chave])) > 1:
         indice_da_copia = lista_sensores.index((chave, tabela_sensores[chave]))
         del lista_sensores[indice_da_copia]
@@ -32,5 +33,5 @@ def cadastrar_sensor(id: int) -> None:
 
 id = 1
 while True:
-    runningThread = start_new_thread(cadastrar_sensor, (id,))
+    start_new_thread(cadastrar_sensor, (id,))
     id = id + 1
