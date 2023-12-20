@@ -14,9 +14,8 @@ def resolver_conflito(tabela_hash: dict[str], timestamp: str):
 
     if len(hashes) > 1:
         hashes.pop()
-
-    for hash_code in hashes:
-        del tabela_hash[hash_code]
+        for hash_code in hashes:
+            del tabela_hash[hash_code]
 
 
 def cadastrar_sensor(tabela_hash_sensores: dict[str], id: int) -> None:
@@ -37,5 +36,5 @@ def cadastrar_sensor(tabela_hash_sensores: dict[str], id: int) -> None:
 
 id = 1
 while True:
-    start_new_thread(cadastrar_sensor, (tabela_sensores, id,))
+    start_new_thread(cadastrar_sensor, (tabela_sensores, id))
     id = id + 1
